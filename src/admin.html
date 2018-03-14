@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>管理页面</title>
+</head>
+<script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+
+<body>
+    <audio controls src="http://p5kgsxox8.bkt.clouddn.com/C400000DltsM4gJHXv.m4a"></audio>
+    <script>
+        var APP_ID = '5pBaVmKfC1ypevTnABEOydEf-gzGzoHsz';
+        var APP_KEY = 'jjfDIiUNwn1xD3EdPpQmoJSh';
+
+        AV.init({
+            appId: APP_ID,
+            appKey: APP_KEY
+        });
+
+        //Leancloud 测试数据
+        var TestObject = AV.Object.extend('TestObject');
+        var testObject = new TestObject();
+        testObject.save({
+            words: 'Hello World!'
+        }).then(function (object) {
+            alert('LeanCloud Rocks!');
+        })
+    </script>
+    <script src="../node_modules/plupload/js/plupload.min.js"></script>
+    <script src="../node_modules/qiniu-js/dist/qiniu.min.js"></script>
+</body>
+
+</html>
