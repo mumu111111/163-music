@@ -27,4 +27,5 @@
         }
     }
     controller.init(view, model)
+    
 }

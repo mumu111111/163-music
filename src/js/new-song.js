@@ -19,6 +19,9 @@
             this.model= model;
             this.view.render(this.model.data);
 
+        },
+        active(){
+            $(this.el).addClass('active')
         }
     }
     controller.init(view, model)

@@ -63,13 +63,7 @@
                     },
                     'FileUploaded': function (up, file, info) {
                         uploadStatus.textContent = '完成上传'
-    
-                        // 每个文件上传成功后，处理相关的事情
-                        // 其中info.response是文件上传成功后，服务端返回的json，形式如：
-                        // {
-                        //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
-                        //    "key": "gogopher.jpg"
-                        //  }
+                       
                         // 查看简单反馈
                         var domain = up.getOption('domain');
                         var response = JSON.parse(info.response);
@@ -91,4 +85,5 @@
         }
     }
     controller.init(view, model)
+    
 }
