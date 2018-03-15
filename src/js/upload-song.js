@@ -1,6 +1,7 @@
 {
     let view = {
         el: '.uploadArea',
+
         template: `
         <div id="uploadContainer" class="draggable">
             <span id="uploadButton" class="clickable">点击或拖曳上传</span>
@@ -8,6 +9,9 @@
         </div>
         <div id="uploadStatus"></div>
         `,
+        find(selector){
+            return $(this.el).find(selector)[0]  //DOM元素
+        },
         render(data){
             $(this.el).html(this.template)
         }
@@ -23,7 +27,7 @@
         initQiniu(){
             var uploader = Qiniu.uploader({
                 runtimes: 'html5',      // 上传模式，依次退化
-                browse_button: 'uploadButton',         // 上传选择的点选按钮，必需
+                browse_button: this.view.find('#uploadButton'),         // 上传选择的点选按钮，必需
                 // 在初始化时，uptoken，uptoken_url，uptoken_func三个参数中必须有一个被设置
                 // 切如果提供了多个，其优先级为uptoken > uptoken_url > uptoken_func
                 // 其中uptoken是直接提供上传凭证，uptoken_url是提供了获取上传凭证的地址，如果需要定制获取uptoken的过程则可以设置uptoken_func
@@ -44,7 +48,7 @@
                 //   flash_swf_url: 'path/of/plupload/Moxie.swf',  //引入flash，相对路径
                 //   max_retries: 3,                     // 上传失败最大重试次数
                 dragdrop: true,                     // 开启可拖曳上传
-                drop_element: 'uploadContainer',          // 拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+                drop_element: this.view.find('#uploadContainer'),          // 拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
                 chunk_size: '4mb',                  // 分块上传时，每块的体积
                 auto_start: true,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传
     
@@ -68,7 +72,13 @@
                         var domain = up.getOption('domain');
                         var response = JSON.parse(info.response);
                         var sourceLink = 'http://' + domain +"/"+ encodeURIComponent(response.key); //encodeURIComponent转义查询参数，获取上传成功后的文件的Url
-                        console.log(sourceLink)//域名+上传文件
+                        console.log(sourceLink)//域名+文件名===外链
+                        console.log(response.key)//文件名
+
+                        window.eventHub.emit('upload',{
+                            name: response.key,
+                            url: sourceLink
+                        })
                     },
                     'Error': function (up, err, errTip) {
                         //上传出错时，处理相关的事情
@@ -79,9 +89,6 @@
                 }
             });
     
-      // domain为七牛空间对应的域名，选择某个空间后，可通过 空间设置->基本设置->域名设置 查看获取
-    
-      // uploader为一个plupload对象，继承了所有plupload的方法
         }
     }
     controller.init(view, model)
