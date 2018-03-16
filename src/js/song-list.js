@@ -16,8 +16,10 @@
             $el.find('ul').empty()//必须清空，要不叠加list
             liList.map((domLi)=>{
                 $(this.el).find('ul').append(domLi)
+                console.log('List'+domLi)
             })
         },
+       
         clearActive(){
             $(this.el).find('.active').removeClass('active')
         }
@@ -25,8 +27,17 @@
     let model={
         data:{
             songs:[]
+        },
+        find(){
+            var query = new AV.Query('Song');
+            return query.find().then((songs) =>{
+              this.data.songs = songs.map((song)=>{
+                return {id: song.id, ...song.attributes}
+              })
+              return songs
+            })
         }
-        //songs:[{XX:XX}]
+        
     }
 
     let controller={
@@ -34,6 +45,8 @@
             this.view= view
             this.model= model
             this.view.render(this.model.data)
+            this.getAllSong()
+
             window.eventHub.on('upload', ()=>{
                 this.view.clearActive()
             })
@@ -43,7 +56,17 @@
                 this.model.data.songs.push(songData)
                 this.view.render(this.model.data)
             })
+        },
+
+        getAllSong(){
+            this.model.find().then(()=>{
+                this.view.render(this.model.data)
+            })
         }
+
+
+
+
     }
     controller.init(view, model)
     

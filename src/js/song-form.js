@@ -69,10 +69,12 @@
                 let {id, attributes} = newSong
                 Object.assign(this.data, {id, ...attributes})
                 
-            }, function (error) {
+            },  (error) =>{
                 console.error(error);
             });
         }
+
+        
     }
 
 
@@ -82,11 +84,10 @@
             this.view.init()
             this.model = model
             this.view.render(this.model.data)
-
+            this.bindEvents()
             window.eventHub.on('upload', (data) => {
                 this.model.data = data
                 this.view.render(this.model.data)
-                this.bindEvents()
             })
         },
 
@@ -97,17 +98,19 @@
                 let data = {}
                 let needs = 'name singer url'.split(' ')
                 needs.map((string) => {
-                    data[string] = this.view.$el.find(`[name=${string}]`).val()
+                    data[string] = this.view.$el.find(`[name="${string}"]`).val()
                 })//获取输入框数据data
                 
                 this.model.create(data)//创建数据库表，return 一个promise
                     .then(()=>{
                         this.view.reset()
                         //this.model.data=== 'ADDR 102' ，是个引用地址， so 深拷贝
-                        let string= JSON.stringify(this.model.data)
-                        let object= JSON.parse(string) //数据库数据
-                        window.eventHub.emit('create', object)
+                        let string = JSON.stringify(this.model.data)
+                        let object = JSON.parse(string)
+
+                        window.eventHub.emit('create',object)
                     })
+               
             })
         }
     }
