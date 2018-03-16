@@ -24,8 +24,7 @@
                 this.active()
             })
             window.eventHub.on('select', (data)=>{
-                console.log('data.id')
-                console.log(data.id)
+               
                 this.deactive()
             })
 

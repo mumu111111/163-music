@@ -1,63 +1,63 @@
 {
-    let view={
+    let view = {
         el: '.songList-container',
         template: `
             <ul class="songList">
                
             </ul>
         `,
-        render(data){ //data==={songs:[]}
-            let $el= $(this.el)
+        render(data) { //data==={songs:[]}
+            let $el = $(this.el)
             $el.html(this.template)
-            let {songs}= data
-            let liList= songs.map((song)=>//生成对应li
+            let { songs } = data
+            let liList = songs.map((song) =>//生成对应li
                 $('<li></li>').text(song.name).attr('data-song-id', song.id)
             )
             $el.find('ul').empty()//必须清空，要不叠加list
-            liList.map((domLi)=>{
+            liList.map((domLi) => {
                 $(this.el).find('ul').append(domLi)
-                console.log('List'+domLi)
+                console.log('List' + domLi)
             })
         },
-        activeItem(li){
-            let $li= $(li)
+        activeItem(li) {
+            let $li = $(li)
             $li.addClass('active')
                 .siblings('.active').removeClass('active')
         },
-       
-        clearActive(){
+
+        clearActive() {
             $(this.el).find('.active').removeClass('active')
         }
     }
-    let model={
-        data:{
-            songs:[]
+    let model = {
+        data: {
+            songs: []
         },
-        find(){
+        find() {
             var query = new AV.Query('Song');
-            return query.find().then((songs) =>{
-              this.data.songs = songs.map((song)=>{
-                return {id: song.id, ...song.attributes}
-              })
-              return songs
+            return query.find().then((songs) => {
+                this.data.songs = songs.map((song) => {
+                    return { id: song.id, ...song.attributes }
+                })
+                return songs
             })
         }
-        
+
     }
 
-    let controller={
-        init(view, model){
-            this.view= view
-            this.model= model
+    let controller = {
+        init(view, model) {
+            this.view = view
+            this.model = model
             this.view.render(this.model.data)
             this.getAllSong()
             this.bindEvents()
 
-            window.eventHub.on('upload', ()=>{
+            window.eventHub.on('upload', () => {
                 this.view.clearActive()
             })
             //获取到数据， 到view
-            window.eventHub.on('create', (songData)=>{//songData数据库歌信息
+            window.eventHub.on('create', (songData) => {//songData数据库歌信息
                 //songs===['ADDR 108'] 
                 this.model.data.songs.push(songData)
                 this.view.render(this.model.data)
@@ -65,17 +65,27 @@
 
         },
 
-        getAllSong(){
-            this.model.find().then(()=>{
+        getAllSong() {
+            this.model.find().then(() => {
                 this.view.render(this.model.data)
             })
         },
-        bindEvents(){
-            $(this.view.el).on('click', 'li', (e)=>{
-                        this.view.activeItem(e.currentTarget)
-                        let songId = e.currentTarget.getAttribute('data-song-id')
-                        window.eventHub.emit('select', {id:songId})
-                     })
+        bindEvents() {
+            $(this.view.el).on('click', 'li', (e) => {
+                this.view.activeItem(e.currentTarget)
+                let songId = e.currentTarget.getAttribute('data-song-id')
+                let data
+                let songs= this.model.data.songs
+                for(let i=0; i< songs.length; i++){
+                    if(songs[i].id === songId){// id 判断对应（数据）项
+                        data = songs[i] 
+                        break
+                    }
+                }
+                window.eventHub.emit('select', JSON.parse(JSON.stringify(data)))// 深拷贝
+
+
+            })
         }
 
 
@@ -83,5 +93,5 @@
 
     }
     controller.init(view, model)
-    
+
 }

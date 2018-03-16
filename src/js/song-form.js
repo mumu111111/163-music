@@ -89,6 +89,10 @@
                 this.model.data = data
                 this.view.render(this.model.data)
             })
+            window.eventHub.on('select', (data)=>{
+                this.model.data= data
+                this.view.render(this.model.data)
+            })
         },
 
         bindEvents() {//保存歌曲，点击提交保存
