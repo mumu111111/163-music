@@ -24,8 +24,8 @@
                
                 this.deactive()
             })
-
-            window.eventHub.on('new',()=>{
+            
+            window.eventHub.on('new',(data)=>{
                 this.active()//新建歌曲
             })
             
