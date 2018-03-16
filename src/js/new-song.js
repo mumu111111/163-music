@@ -18,7 +18,7 @@
             this.view= view;
             this.model= model;
             this.view.render(this.model.data);
-            this.active() //激活状态
+            this.active() //默认激活状态
             window.eventHub.on('upload', (data)=>{
                 this.active()
             })

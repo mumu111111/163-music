@@ -3,24 +3,31 @@
         el: '.songList-container',
         template: `
             <ul class="songList">
-                <li>歌曲1</li>
-                <li class="active">歌曲2</li>
-                <li>歌曲3</li>
-                <li>歌曲4</li>
-                <li>歌曲5</li>
-                <li>歌曲6</li>
-                <li>歌曲7</li>
-                <li>歌曲8</li>
+               
             </ul>
         `,
-        render(data){
-            $(this.el).html(this.template)
+        render(data){ //data==={songs:[]}
+            let $el= $(this.el)
+            $el.html(this.template)
+            let {songs}= data
+            let liList= songs.map((song)=>//生成对应li
+                $('<li></li>').text(song.name)
+            )
+            $el.find('ul').empty()//必须清空，要不叠加list
+            liList.map((domLi)=>{
+                $(this.el).find('ul').append(domLi)
+            })
         },
         clearActive(){
             $(this.el).find('.active').removeClass('active')
         }
     }
-    let model={}
+    let model={
+        data:{
+            songs:[]
+        }
+        //songs:[{XX:XX}]
+    }
 
     let controller={
         init(view, model){
@@ -29,6 +36,12 @@
             this.view.render(this.model.data)
             window.eventHub.on('upload', ()=>{
                 this.view.clearActive()
+            })
+            //获取到数据， 到view
+            window.eventHub.on('create', (songData)=>{//songData数据库歌信息
+                //songs===['ADDR 108'] 
+                this.model.data.songs.push(songData)
+                this.view.render(this.model.data)
             })
         }
     }
