@@ -57,19 +57,17 @@
                 this.view.clearActive()
             })
             //获取到数据， 到view
-            window.eventHub.on('create', (songData) => {//songData数据库歌信息
-                //songs===['ADDR 108'] 
-                this.model.data.songs.push(songData)
-                this.view.render(this.model.data)
-            })
+            this.EventHub()
+            
 
         },
 
         getAllSong() {
-            this.model.find().then(() => {
+            return this.model.find().then(() => {
                 this.view.render(this.model.data)
             })
         },
+
         bindEvents() {
             $(this.view.el).on('click', 'li', (e) => {
                 this.view.activeItem(e.currentTarget)
@@ -85,6 +83,16 @@
                 window.eventHub.emit('select', JSON.parse(JSON.stringify(data)))// 深拷贝
 
 
+            })
+        },
+        EventHub(){
+            window.eventHub.on('create', (songData) => {//songData数据库歌信息
+                //songs===['ADDR 108'] 
+                this.model.data.songs.push(songData)
+                this.view.render(this.model.data)
+            })
+            window.eventHub.on('new', ()=>{
+                this.view.clearActive()
             })
         }
 
