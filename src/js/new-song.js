@@ -11,7 +11,7 @@
 
     }
     let model={
-      
+      data:{}
     }
     let controller={
         init(view, model){
@@ -19,19 +19,17 @@
             this.model= model;
             this.view.render(this.model.data);
             this.active() //默认激活状态
-            window.eventHub.emit('new',(data)=>{
-                this.active()
-            })
-            // window.eventHub.on('upload', (data)=>{
-            //     this.active()
-            // })
+           
             window.eventHub.on('select', (data)=>{
                
                 this.deactive()
-            }),
+            })
+
+            window.eventHub.on('new',()=>{
+                this.active()//新建歌曲
+            })
             
             $(this.view.el).on('click', ()=>{
-                this.active()
                 window.eventHub.emit('new')
             })
 

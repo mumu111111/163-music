@@ -95,10 +95,6 @@
                 this.view.clearActive()
             })
         }
-
-
-
-
     }
     controller.init(view, model)
 
