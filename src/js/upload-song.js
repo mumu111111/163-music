@@ -60,14 +60,17 @@
                     },
                     'BeforeUpload': function (up, file) {
                         // 每个文件上传前，处理相关的事情
+                        window.eventHub.emit('beforeUpload')
                     },
                     'UploadProgress': function (up, file) {
-                        uploadStatus.textContent = '上传中'
                         // 每个文件上传时，处理相关的事情
+                        // uploadStatus.textContent = '上传中'
                     },
                     'FileUploaded': function (up, file, info) {
-                        uploadStatus.textContent = '完成上传'
-                       
+                        //完成上传后 处理相关事件
+                        // uploadStatus.textContent = '完成上传'
+                        window.eventHub.emit('afterUpload')
+                        
                         // 查看简单反馈
                         var domain = up.getOption('domain');
                         var response = JSON.parse(info.response);
