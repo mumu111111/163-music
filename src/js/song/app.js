@@ -10,6 +10,7 @@
             this.$el.find('img.cover').attr('src', song.cover)
             if(this.$el.find('audio').attr('src') !== song.url){
               let audio = this.$el.find('audio').attr('src', song.url).get(0)
+              console.log(audio)
               audio.onended = ()=>{ window.eventHub.emit('songEnd') }
               audio.ontimeupdate = ()=> { this.showLyric(audio.currentTime) }
       
@@ -102,10 +103,6 @@
             this.model.get(id).then(()=>{
                 this.view.render(this.model.data)
             })
-            window.eventHub.on('songEnd', ()=>{
-                this.model.status = 'paused'
-                this.view.render(this.model.data)
-            })
             this.bindEvents()
         },
         bindEvents(){
@@ -118,6 +115,10 @@
                 this.model.data.status = 'pause' //当前暂停状态
                 this.view.render(this.model.data)
                 this.view.pause()
+            })
+            window.eventHub.on('songEnd', ()=>{
+                this.model.data.status = 'paused'
+                this.view.render(this.model.data)
             })
         },
         getSongId(){//"?id={{song.id}}"
