@@ -112,7 +112,7 @@
                 this.view.play()
             })
             $(this.view.el).on('click', '.icon-pause', ()=>{
-                this.model.data.status = 'pause' //当前暂停状态
+                this.model.data.status = 'paused' //当前暂停状态
                 this.view.render(this.model.data)
                 this.view.pause()
             })
