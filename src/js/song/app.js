@@ -4,44 +4,6 @@
         init(){
             this.$el= $(this.el)
         },
-        // render(data){
-        //         let {song, status} = data
-        //         this.$el.css('background-image', `url(${song.cover})`)
-        //         this.$el.find('img.cover').attr('src', song.cover)
-        //         if(this.$el.find('audio').attr('src') !== song.url){
-        //             let audio= this.$el.find('audio').attr('src', song.url).get(0)
-                   
-        //             audio.onended= ()=>{ window.eventHub.emit('songEnd') }
-        //             audio.ontimeupdate = ()=>{ this.showLyric(audio.currentTime)}// 记录当前时间
-        //         }
-        //         if(status === 'playing'){
-        //              this.$el.find('.disc-container').addClass('playing')
-        //         }else{
-        //              this.$el.find('.disc-container').removeClass('playing')
-        //         }
-        //         //渲染歌词到页面
-        //         this.$el.find('.song-description>h1').text(song.name)
-        //         let {lyrics} = song
-        //         lyrics.split('\n').map((string)=>{
-        //             let p = document.createElement('p')
-        //             let regx= /\[([\d:.]+)\](.+)/
-        //             let matches= string.match(regx)
-        //             if(matches){
-        //                 p.textContext = matches[2]
-        //                 let time= matches[1]
-        //                 let parts= time.split(':')
-        //                 let minutes= parts[0]
-        //                 let seconds= parts[1]
-        //                 let newTime= parseInt(minutes, 10)*60 + parseFloat(seconds, 10)
-        //                 p.setAtrributes('data-time', newTime)
-
-        //             }else{
-        //                 p.textContent= string
-        //             }
-        //             this.$el.find('.lyric>.lines').append(p)
-        //         })
-
-        // },
         render(data){
             let {song, status} = data
             this.$el.css('background-image', `url(${song.cover})`)
@@ -140,11 +102,11 @@
             this.model.get(id).then(()=>{
                 this.view.render(this.model.data)
             })
-            this.bindEvents()
             window.eventHub.on('songEnd', ()=>{
                 this.model.status = 'paused'
                 this.view.render(this.model.data)
             })
+            this.bindEvents()
         },
         bindEvents(){
             $(this.view.el).on('click', '.icon-play', ()=>{
