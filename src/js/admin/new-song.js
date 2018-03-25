@@ -2,7 +2,7 @@
     let view=  {
         el: '.newSong',
         template: `
-            新建歌曲
+            <span>新增歌曲</span>
         `,
         render(data){
             $(this.el).html(this.template)//渲染到页面

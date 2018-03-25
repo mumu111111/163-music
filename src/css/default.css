@@ -16,6 +16,7 @@ body{
 .page{
     display: flex;
     height: 100vh;
+    background-color: rgba(0,0,0,0.3);
 }
 
 .page > aside{
@@ -31,53 +32,98 @@ body{
 .page > aside{
    display: flex;
    flex-direction: column;
+   background: #d4d4d4;
+   
 }
 .newSong{
     text-align: center;
     padding: 10px;
 }
+.newSong span{
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: bold;
+    color: #3D4451;
+    padding: 21px 55px;
+    border: 1px solid #CDCFD1;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 6px 0;
+    transition: box-shadow 0.3s;
+    background: #EFEFEF;
+    cursor: pointer;
+}
+.newSong span:hover{
+    opacity: .95;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+}
 .newSong.active{
-    background: #d4d4d4;
+    background: #E9E4E4;
 }
 .songList-container{
     flex-grow:1;
 }
 .songList{
-    border-top: 1px solid #999;
+    border-top: 1px solid #DAD7D7;
     text-align: left;
 }
 .songList > li{
-    border-bottom: 1px solid #ddd;
-    padding: 10px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: bold;
+    color: #3D4451;
+    text-align: center;
+    border-bottom: 1px solid #9C8E8E;
+    padding: 30px 20px;
+    cursor: pointer;
 }
 .songList > li.active{
     background: #d4d4d4;
 }
-.uploadArea{}
+.uploadArea{
+    width: 100%;
+}
 .draggable{
     text-align: center;
-    padding: 20px;
+    padding: 80px 0;
     border: 2px dashed #ddd;
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 200px;
     flex-direction: column;
-}    
+}  
+.draggable span{
+    display: block;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: bold;
+    color: #3D4451;
+    width: 100%;
+    line-height: 70px;
+
+}  
 .clickable{
     cursor: pointer;
 }
 
 /*main*/
 .page > main{
-    background: #d4d4d4;
+}
+.newform{
+    border: 1px solid #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 340px;
+    margin: 0 auto;
+    margin-top: 90px;
+    text-align: center;
 }
 .form{
     font-size: 14px;
 }
 .form > .row{
-    margin: 20px 0;
+    margin: 8px 0;
     display: flex;
 }
 .form > .row > label{
@@ -92,9 +138,11 @@ body{
 }
 
 .form  input[type=text]{
-    padding: 3px 8px;
+    padding: 2px 8px;
+    /* border: none;
+    border: 1px solid; */
     border-radius: 5px;
-    height: 30px; /*总高*/
+    height: 25px; /*总高*/
 }
 
 .form input[type=button],

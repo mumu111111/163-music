@@ -1,6 +1,6 @@
 {
     let view = {
-        el: '.page > main',
+        el: '.page > main .newform',
         init() {
             this.$el = $(this.el)
         },
@@ -8,33 +8,33 @@
         <form class="form">
             <div class="row">
                 <label>
-                    歌名
+                    歌曲名称
                 </label>
                 <input type="text" name="name" value="__name__">
             </div>
             <div class="row">
                 <label>
-                    歌手
+                    专辑歌手
                 </label>
                 <input type="text" name="singer" value="__singer__">
             </div>
             <div class="row">
                 <label>
-                    外链
+                    歌曲外链
                 </label>
                 <input type="text" name="url" value="__url__">
             </div>
             <div class="row">
                 <label>
-                    封面
+                    歌曲封面
                 </label>
                 <input name="cover" type="text" value="__cover__">
             </div>
             <div class="row">
                 <label>
-                    歌词
+                    歌曲歌词
                 </label>
-                <textarea cols=100 rows=10 name="lyrics">__lyrics__</textarea>
+                <textarea cols=30 rows=5 name="lyrics">__lyrics__</textarea>
             </div>
             <div class="row actions">
                 <button type="submit">保存</button>
@@ -50,9 +50,9 @@
             $(this.el).html(html)
 
             if (data.id) {
-                this.$el.prepend('<h1>编辑歌曲</h1>')
+                this.$el.prepend('<h2>编辑歌曲</h2>')
             } else {
-                this.$el.prepend('<h1>新建歌曲</h1>')
+                this.$el.prepend('<h2>新建歌曲</h2>')
             }
         },
         reset() {
