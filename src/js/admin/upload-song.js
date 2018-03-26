@@ -1,6 +1,6 @@
 {
     let view = {
-        el: '.page > main .uploadArea',
+        el: '.page section > aside .uploadArea',
 
         template: `
         <div id="uploadContainer" class="draggable">

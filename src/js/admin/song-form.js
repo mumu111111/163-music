@@ -1,6 +1,6 @@
 {
     let view = {
-        el: '.page > main .newform',
+        el: '.page  .newform',
         init() {
             this.$el = $(this.el)
         },
