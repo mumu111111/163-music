@@ -9,4 +9,4 @@ http-server -c-1
 node server 8888
 
 open http://127.0.0.1:8080/src/index.html
-![项目流程](http://p5kgsxox8.bkt.clouddn.com/%E4%BA%91%E9%9F%B3%E4%B9%90.mp4)
+![项目流程](https://mumu111111.github.io/163-music/video/video.mp4)
