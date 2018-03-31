@@ -190,7 +190,7 @@ body{
 /*loading*/
 @keyframes loading{
     0%{
-        transform: scale(1.0)
+        transform: scale(0.7)
     }
     100%{
         transform: scale(0.1)
@@ -217,7 +217,7 @@ body{
     display: block;
     width: 100px;
     height: 100px;
-    background: green;
+    background: #C72E2E;
     position: absolute;
     top: 50%;
     left: 50%;
