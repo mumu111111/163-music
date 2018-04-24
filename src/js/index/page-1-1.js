@@ -3,7 +3,5 @@
         el: 'section.palyLists'
     }
     let model= {}
-    let controller= {
-
-    }
+    let controller= {}
 }
