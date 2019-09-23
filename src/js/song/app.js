@@ -68,7 +68,9 @@
             $(p).addClass('active').siblings('.active').removeClass('active')
         },
         play(){
-            this.$el.find('audio')[0].play()
+            if (this.$el.find('audio')[0].paused) {  
+                this.$el.find('audio')[0].play()
+            }
         },
         pause(){
             this.$el.find('audio')[0].pause()
